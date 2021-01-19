@@ -58,7 +58,6 @@ public class View {
         flowLabel.setBounds(50, 35, 200, 26);
         flowLabel.setFont(new Font("Sans Serif", Font.BOLD, 16));
         frame.add(flowLabel);
-		flowLabel.setVisible(true);
 
 		flowArea = new JTextArea();
         flowArea.setLineWrap(true);
@@ -152,7 +151,6 @@ public class View {
 		runButton = new JButton("Run");
 		runButton.setBounds(670, 430, 100, 28);
 		frame.add(runButton);
-		runButton.setVisible(true);
 
 	// Output screen
 
