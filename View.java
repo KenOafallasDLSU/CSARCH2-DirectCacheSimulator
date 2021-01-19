@@ -58,10 +58,10 @@ public class View {
         flowLabel.setBounds(50, 35, 200, 26);
         flowLabel.setFont(new Font("Sans Serif", Font.BOLD, 16));
         frame.add(flowLabel);
+		flowLabel.setVisible(true);
 
 		flowArea = new JTextArea();
         flowArea.setLineWrap(true);
-        // flowArea.setEditable(false);
 
 		flowScroll = new JScrollPane(flowArea);
         flowScroll.setBounds(50, 70, 420, 420);
@@ -152,6 +152,7 @@ public class View {
 		runButton = new JButton("Run");
 		runButton.setBounds(670, 430, 100, 28);
 		frame.add(runButton);
+		runButton.setVisible(true);
 
 	// Output screen
 
@@ -181,6 +182,8 @@ public class View {
 	}
 
 	public void outputScreen() {
+        flowArea.setEditable(false);
+
 		flowLabel.setVisible(false);
 		runButton.setVisible(false);
 
@@ -190,6 +193,8 @@ public class View {
 	}
 
 	public void inputScreen() {
+        flowArea.setEditable(true);
+
 		flowLabel.setVisible(true);
 		runButton.setVisible(true);
 
