@@ -14,8 +14,9 @@ public class Controller {
     private Model model;
     private Simulator simulator;
     
-    public Controller( View view, Model model) {
+    public Controller( View view, Model model, Simulator simulator) {
       this.view=view;
+      this.simulator=simulator;
       this.view.addRunListener(new RunListener());
     }
 
@@ -25,8 +26,11 @@ public class Controller {
 
     class RunListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
-        System.out.println(view.flowArea.getText());
+        //System.out.println(view.flowArea.getText());
         //super.simulator=new Simulator(0,0,view.flowArea.getText(),0,0);
+        Controller.this.simulator.setProgramFlow(view.flowArea.getText());
+        Controller.this.simulator.printWords();
+
       }
     }
 }

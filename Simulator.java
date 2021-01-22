@@ -25,7 +25,8 @@ public class Simulator{
   private int mmBlocks;
   private int blockSize;
   
-  public Simulator(float cacheAccessTime, float mmAccessTime, String programFlow, int cacheBlocks, int mmBlocks, int blockSize) {
+  public Simulator() {
+    /*
     this.cacheAccessTime=cacheAccessTime;
     this.mmAccessTime=mmAccessTime;
     //this.programFlow=Arrays.copyOf(programFlow, programFlow.length);
@@ -33,11 +34,18 @@ public class Simulator{
     this.cacheBlocks=cacheBlocks;
     this.mmBlocks=mmBlocks;
     this.blockSize=blockSize;
+    */
   }
 
-  public void printWords(String[] words){
-    System.out.println(words[0]);
+  public void setProgramFlow(String programFlow){
+    this.programFlow=programFlow;
+  }
+
+  public void printWords(){
+    System.out.println(this.programFlow);
   }
 
 
 }
+
+
