@@ -45,6 +45,9 @@ public class Simulator{
     System.out.println(this.programFlow);
   }
 
+  public void setMMBlocks(int mmBlocks){
+    this.mmBlocks=mmBlocks;
+  }
 
 }
 

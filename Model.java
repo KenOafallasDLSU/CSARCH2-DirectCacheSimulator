@@ -29,11 +29,11 @@ public class Model {
   public Model(){
   }
 
-  public void setCacheAccessTime(int cacheAccessTime){
+  public void setCacheAccessTime(float cacheAccessTime){
     this.cacheAccessTime=cacheAccessTime;
   }
 
-  public void setmmAccessTime(int mmAccessTime){
+  public void setMMAccessTime(float mmAccessTime){
     this.mmAccessTime=mmAccessTime;
   }
 
@@ -67,6 +67,10 @@ public class Model {
 
   public int getCacheBlocks(){
     return this.cacheBlocks;
+  }
+
+  public int getMMBlocks(){
+    return this.mmBlocks;
   }
 
   public int getBlockSize(){

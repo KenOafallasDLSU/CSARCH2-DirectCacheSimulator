@@ -12,8 +12,7 @@ public class Driver {
      //   Simulator simulator = new Simulator(0,0,0);
         View view = new View();
         Model model=new Model();
-        Simulator simulator=new Simulator();
-        Controller controller = new Controller(view, model, simulator);
+        Controller controller = new Controller(view, model);
         controller.getView().inputScreen();
     }
 }
