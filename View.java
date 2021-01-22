@@ -201,11 +201,16 @@ public class View {
 		exportButton.setVisible(false);
 	}
 
+
+	void addRunListener(ActionListener listenForRun){
+		runButton.addActionListener(listenForRun);
+	}
 	// temp main to see view
+	/*
 	public static void main(String[] args) {
 		View view = new View();
 
 		view.inputScreen();
 		// view.outputScreen();
-	}
+	}*/
 }
