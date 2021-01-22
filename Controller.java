@@ -17,7 +17,6 @@ public class Controller {
       this.view=view;
       this.model=model;
       this.view.addRunListener(new RunListener());
-      this.view.addCacheBlockListener(new CacheBlockListener());
     }
 
     public View getView(){
@@ -30,7 +29,7 @@ public class Controller {
         //super.simulator=new Simulator(0,0,view.flowArea.getText(),0,0);
         //Controller.this.simulator.setProgramFlow(view.flowArea.getText());
         //Controller.this.simulator.printWords();
-        
+
         model.setprogramFlow(view.flowArea.getText());
         model.setCacheAccessTime(Float.parseFloat(view.cat.getText()));
         model.setMMAccessTime(Float.parseFloat(view.mat.getText()));
