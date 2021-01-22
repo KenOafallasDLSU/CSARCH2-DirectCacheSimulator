@@ -9,8 +9,10 @@
 public class Driver {
     public static void main(String[] args) {
 
-        Model model = new Model();
+     //   Simulator simulator = new Simulator(0,0,0);
         View view = new View();
-        Controller controller = new Controller(model, view);
+        Model model=new Model();
+        Controller controller = new Controller(view, model);
+        controller.getView().inputScreen();
     }
 }
