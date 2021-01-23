@@ -32,6 +32,12 @@ public class Model {
     this.sim = new Simulator();
   }
 
+  /**
+   * Runs all needed functions for simulation and sets the output attribues
+   * 
+   * @precondition - programFlow, cacheBlocks, mmBlocks, blockSize 
+   *                 are already set in Model instance
+   */
   public void runSimulationSequence() {
     this.sim.setProgramFlow(this.programFlow);
     this.sim.setCacheBlocks(this.cacheBlocks);
