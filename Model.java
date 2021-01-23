@@ -7,6 +7,7 @@
  */
 
 import java.io.File;
+import java.util.Arrays;
 
 public class Model {
   private Simulator sim;
@@ -97,6 +98,10 @@ public class Model {
 
   public int getBlockSize(){
     return this.blockSize;
+  }
+
+  public String getCacheSnapshot() {
+    return Arrays.deepToString(this.cacheSnapshot);
   }
   /*
   constructor Calculator(cacheAccessTime, mmAccessTime, hitCount, missCount)

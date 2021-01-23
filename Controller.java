@@ -60,14 +60,10 @@ public class Controller {
         System.out.println("Cache Blocks: "+model.getCacheBlocks());
         System.out.println("MM Blocks: "+model.getMMBlocks());
         System.out.println("Size of a Block: "+model.getBlockSize());
-        
+        model.runSimulationSequence();
+        System.out.println("snapshot: "+model.getCacheSnapshot());
       }
     }
 
-    class CacheBlockListener implements ActionListener{
-      public void actionPerformed(ActionEvent e){
-
-      }
-    }
 }
     
