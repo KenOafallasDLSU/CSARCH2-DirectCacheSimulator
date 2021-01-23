@@ -9,7 +9,7 @@
 import java.io.File;
 
 public class Model {
-  private Simulator simulator;
+  private Simulator sim;
   private Calculator calculator;
 
   //Simulator and Calculator attributes
@@ -22,11 +22,27 @@ public class Model {
   private int mmBlocks;
   private int blockSize;
 
+  private int[][] cacheSnapshot;
+
   //Calculator attributes
   private int hitCount;
   private int missCount; 
 
   public Model(){
+    this.sim = new Simulator();
+  }
+
+  public void runSimulationSequence() {
+    this.sim.setProgramFlow(this.programFlow);
+    this.sim.setCacheBlocks(this.cacheBlocks);
+    this.sim.setMMBlocks(this.mmBlocks);
+    this.sim.setBlockSize(this.blockSize);
+
+    this.sim.runSimulation();
+
+    this.hitCount = this.sim.getHitCount();
+    this.missCount = this.sim.getMissCount();
+    this.cacheSnapshot = this.sim.getCacheSnapshot();
   }
 
   public void setCacheAccessTime(float cacheAccessTime){

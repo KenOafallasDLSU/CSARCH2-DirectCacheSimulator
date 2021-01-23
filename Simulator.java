@@ -11,13 +11,13 @@
 import java.util.ArrayList;
 
 public class Simulator{
-  //input
+  //input attributes
   private String programFlow;
   private int cacheBlocks;
   private int mmBlocks;
   private int blockSize;
 
-  //output
+  //output attributes
   private int[][] cacheMemory;
   private int[][] mainMemory;
   private int missCount;
@@ -41,7 +41,7 @@ public class Simulator{
    * @precondition - input values must be set beforehand
    */
   public void runSimulation() {
-    this.cacheMemory = new int[this.cacheBlocks][this.blockSize];
+    this.cacheMemory = initCacheMemory();
     this.mainMemory = initMainMemory();
     this.missCount = 0;
     this.hitCount = 0;
@@ -71,6 +71,21 @@ public class Simulator{
   }
 
   /**
+   * Initializes addresses in cache to -1 guard value, indicating empty
+   */
+  private int[][] initCacheMemory() {
+    int[][] filledCache = new int[this.cacheBlocks][this.blockSize];
+
+    for(int i=0; i < this.cacheBlocks; i++){
+      for(int k=0; k < this.blockSize; k++){
+        filledCache[i][k] = -1;
+      }
+    }
+
+    return filledCache;
+  }
+
+  /**
    * Initializes addresses in main memory
    */
   private int[][] initMainMemory() {
@@ -94,10 +109,10 @@ public class Simulator{
     ArrayList<Integer> parsedFlow = new ArrayList<Integer>();
 
     //logic here
-    parsedFlow.add(23) //sample data
-    parsedFlow.add(12)
-    parsedFlow.add(9)
-    parsedFlow.add(9)
+    parsedFlow.add(3); //sample data
+    parsedFlow.add(5);
+    parsedFlow.add(9);
+    parsedFlow.add(9);
 
     return parsedFlow;
   }
@@ -118,7 +133,7 @@ public class Simulator{
   }
 
   //getters
-  public String[][] getCacheSnapshot() {
+  public int[][] getCacheSnapshot() {
     return this.cacheMemory;
   }
   public int getMissCount() {
