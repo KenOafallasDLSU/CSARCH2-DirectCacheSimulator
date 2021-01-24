@@ -188,6 +188,9 @@ public class Simulator{
     for(int i = 0; i < this.cacheBlocks; i++){
       boolean valid = this.cacheMemory[i][0] != -1;
 
+      sb.append("Block " + i);
+      sb.append(System.lineSeparator());
+
       for(int k = 0; k < this.blockSize; k++) {
         if(valid){
           String bin = Integer.toBinaryString(this.cacheMemory[i][k]);
@@ -207,9 +210,13 @@ public class Simulator{
           //valid bit
           sb.append("0 ");
         }
-          
-        sb.append(System.lineSeparator());
+        
+        if(i < this.cacheBlocks-1 || k < this.blockSize-1)
+          sb.append(System.lineSeparator());
       }
+
+      if(i < this.cacheBlocks-1)
+        sb.append(System.lineSeparator());
     }
 
     return sb.toString();
