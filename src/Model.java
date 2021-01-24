@@ -101,7 +101,7 @@ public class Model {
   }
 
   public String getCacheSnapshot() {
-    return this.cacheSnapshot()
+    return this.cacheSnapshot;
   }
   
   public void setHitCount(int hitCount){
