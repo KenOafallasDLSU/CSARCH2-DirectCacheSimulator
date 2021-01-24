@@ -178,7 +178,43 @@ public class Simulator{
   }
 
   //getters
-  public int[][] getCacheSnapshot() {
+  public String getCacheSnapshot() {
+    StringBuilder sb = new StringBuilder();
+    int addBits = (int)(Math.log(this.mmBlocks*this.blockSize)/Math.log(2));
+    int blockBits = (int)(Math.log(this.cacheBlocks)/Math.log(2));
+    int wordBits = (int)(Math.log(this.blockSize)/Math.log(2));
+    int tagBits = addBits - (blockBits + wordBits); 
+
+    for(int i = 0; i < this.cacheBlocks; i++){
+      boolean valid = this.cacheMemory[i][0] != -1;
+
+      for(int k = 0; k < this.blockSize; k++) {
+        if(valid){
+          String bin = Integer.toBinaryString(this.cacheMemory[i][k]);
+
+          while(bin.length() < addBits){
+            bin = "0" + bin;
+          }
+
+          //valid bit
+          sb.append("1 ");
+          //tag
+          sb.append(bin.substring(0, tagBits));
+          sb.append(" ");
+          //address
+          sb.append(bin);
+        } else{
+          //valid bit
+          sb.append("0 ");
+        }
+          
+        sb.append(System.lineSeparator());
+      }
+    }
+
+    return sb.toString();
+  }
+  public int[][] getRawSnapshot(){
     return this.cacheMemory;
   }
   public int getMissCount() {
