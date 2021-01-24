@@ -30,6 +30,8 @@ public class View {
 	public JTextField mmInput;
 	public JRadioButton mmBlock;
 	public JRadioButton mmWord;
+
+	public JRadioButton address;
 	
 	public JLabel blockSizeLabel;
 	public JTextField blockSize;
@@ -48,7 +50,7 @@ public class View {
 
 	public View () {
 		frame = new JFrame("Direct Mapping Cache Simulator");
-        frame.setSize(1000, 600);
+        frame.setSize(1000, 565);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -63,9 +65,14 @@ public class View {
         flowArea.setLineWrap(true);
 
 		flowScroll = new JScrollPane(flowArea);
-        flowScroll.setBounds(50, 70, 420, 420);
+        flowScroll.setBounds(50, 70, 420, 360);
         frame.add(flowScroll);
         // flowScroll.setVisible(true);
+
+		address = new JRadioButton("Treat inputs as block address");
+		address.setBounds(50, 435, 420, 25);
+		// address.setSelected(true);
+		frame.add(address);
 
 	// Cache Size
 		cmLabel = new JLabel("Cache size");
