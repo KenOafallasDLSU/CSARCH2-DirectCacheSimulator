@@ -24,6 +24,7 @@ public class Model {
   private int blockSize;
 
   private String cacheSnapshot;
+  private boolean isAddress;
 
   //Calculator attributes
   private int hitCount;
@@ -76,6 +77,10 @@ public class Model {
     this.blockSize=blockSize;
   }
 
+  public void setIsAddress(boolean isAddress){
+    this.isAddress=isAddress;
+  }
+
   public float getCacheAccessTime(){
     return this.cacheAccessTime;
   }
@@ -102,6 +107,10 @@ public class Model {
 
   public String getCacheSnapshot() {
     return this.cacheSnapshot;
+  }
+
+  public boolean getIsAddress(){
+    return this.isAddress;
   }
   
   public void setHitCount(int hitCount){
