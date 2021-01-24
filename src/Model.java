@@ -101,14 +101,8 @@ public class Model {
   }
 
   public String getCacheSnapshot() {
-    return Arrays.deepToString(this.cacheSnapshot);
+    return this.cacheSnapshot;
   }
-  /*
-  constructor Calculator(cacheAccessTime, mmAccessTime, hitCount, missCount)
-float getMissPenalty()
-float getAverageTime()
-float getTotalTime()
-  */
   
   public void setHitCount(int hitCount){
     this.hitCount=hitCount;
