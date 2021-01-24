@@ -9,6 +9,7 @@
  */
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Simulator{
   //input attributes
@@ -107,13 +108,57 @@ public class Simulator{
    */
   private ArrayList<Integer> parseProgramFlow() {
     ArrayList<Integer> parsedFlow = new ArrayList<Integer>();
+    ArrayList<Integer> loopAddStore = new ArrayList<Integer>();
+    ArrayList<Integer> loopCtrStore = new ArrayList<Integer>();
+    ArrayList<String> loopNameStore = new ArrayList<String>();
 
-    //logic here
-    parsedFlow.add(3); //sample data
-    parsedFlow.add(5);
-    parsedFlow.add(9);
-    parsedFlow.add(9);
+    Scanner sc = new Scanner(this.programFlow);
+    int addressCounter = 0;
+    while(sc.hasNextLine()){
+      String line = sc.nextLine().trim();
+      String[] splitted = line.split(" ");
+      //System.out.println(Arrays.toString(splitted));
 
+      if(splitted[0].equalsIgnoreCase("LOOP")) {
+        loopAddStore.add(addressCounter);
+        loopCtrStore.add(Integer.parseInt(splitted[2]));
+        loopNameStore.add(splitted[1]);
+      } else if(splitted[0].equalsIgnoreCase("J")) {
+        int index = loopNameStore.size() - 1;
+        
+        if(splitted[1].equals(loopNameStore.get(index))) {
+          ArrayList<Integer> loopSequence = new ArrayList<Integer>();
+
+          //save sequence
+          for(int k=loopAddStore.get(index); k <= addressCounter-1; k++){
+            loopSequence.add(parsedFlow.get(k));
+          }
+          //System.out.println("Stored loop: " + loopSequence.toString());
+
+          //add loop
+          for(int i=0; i < loopCtrStore.get(index)-1; i++){
+            for(int k=0; k < loopSequence.size(); k++){
+              parsedFlow.add(loopSequence.get(k));
+              addressCounter++;
+            }
+          }
+
+          loopAddStore.remove(index);
+          loopCtrStore.remove(index);
+          loopNameStore.remove(index);
+        }
+      } else{
+        parsedFlow.add(Integer.parseInt(splitted[0]));
+        addressCounter++;
+      }
+    }
+
+    // System.out.println("Name: " + loopNameStore.toString());
+    // System.out.println("Add: " + loopAddStore.toString());
+    // System.out.println("Ctr: " + loopCtrStore.toString());
+    // System.out.println("Flow: " + parsedFlow.toString());
+    // System.out.println("Count: " + addressCounter);
+    sc.close();
     return parsedFlow;
   }
 
