@@ -7,7 +7,9 @@
  */
 
 import java.awt.event.*;
-
+import java.io.File;
+import java.io.IOException; 
+import java.io.FileWriter; 
 public class Controller {
 
     private View view;
@@ -62,6 +64,24 @@ public class Controller {
         System.out.println("Size of a Block: "+model.getBlockSize());
         model.runSimulationSequence();
         System.out.println("snapshot: "+model.getCacheSnapshot());
+        view.flowArea.setText(model.getCacheSnapshot());
+
+        try {
+          File myObj = new File("filename.txt");
+          if (myObj.createNewFile()) {
+            System.out.println("File created: " + myObj.getName());
+          } else {
+            System.out.println("File already exists.");
+          }
+          FileWriter myWriter = new FileWriter("filename.txt");
+          String toBeWritten="Hit count: "+model.getHitCount()+"\n"+"Miss count: "+model.getMissCount()+"\n"+"Cache access time: "+model.getCacheAccessTime()+"\n"+"Cache Snapshot: \n"+model.getCacheSnapshot();
+          myWriter.write(toBeWritten);
+          myWriter.close();
+          System.out.println("Successfully wrote to the file.");
+        } catch (IOException error) {
+          System.out.println("An error occurred.");
+          error.printStackTrace();
+        }
       }
     }
 
