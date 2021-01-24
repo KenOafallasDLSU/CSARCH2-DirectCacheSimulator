@@ -23,7 +23,7 @@ public class Model {
   private int mmBlocks;
   private int blockSize;
 
-  private int[][] cacheSnapshot;
+  private String cacheSnapshot;
 
   //Calculator attributes
   private int hitCount;
