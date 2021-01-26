@@ -52,8 +52,15 @@ public class Calculator {
     float miss;
     float cacheProbing;
 
+    if (this.isLoadThrough) {
+      miss = this.missCount * this.cacheAccessTime;
+    }
+    else {
+      miss = this.missCount * this.blockSize * this.mmAccessTime * this.cacheAccessTime;
+    }
+
     hit = this.hitCount * this.blockSize * this.cacheAccessTime;
-    miss = this.missCount * this.blockSize * this.mmAccessTime * this.cacheAccessTime;
+    
     cacheProbing = this.missCount + this.cacheAccessTime;
 
     totalTime = hit + miss + cacheProbing;
