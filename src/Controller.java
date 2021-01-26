@@ -56,6 +56,7 @@ public class Controller {
           model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
         }
 
+        model.setIsAddress(view.address.isSelected());
         
         System.out.println("Cache access: "+model.getCacheAccessTime());
         System.out.println("MM access: "+model.getMMAccessTime());
@@ -64,6 +65,7 @@ public class Controller {
         System.out.println("Size of a Block: "+model.getBlockSize());
         model.runSimulationSequence();
         System.out.println("snapshot: "+model.getCacheSnapshot());
+        System.out.println("is address: "+model.getIsAddress());
         view.flowArea.setText(model.getCacheSnapshot());
 
         try {
