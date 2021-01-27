@@ -56,12 +56,12 @@ public class Calculator {
       miss = this.missCount * this.cacheAccessTime;
     }
     else {
-      miss = this.missCount * this.blockSize * this.mmAccessTime * this.cacheAccessTime;
+      miss = this.missCount * this.blockSize * (this.mmAccessTime + this.cacheAccessTime);
     }
 
     hit = this.hitCount * this.blockSize * this.cacheAccessTime;
     
-    cacheProbing = this.missCount + this.cacheAccessTime;
+    cacheProbing = this.missCount * this.cacheAccessTime;
 
     totalTime = hit + miss + cacheProbing;
 
