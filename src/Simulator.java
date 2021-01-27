@@ -17,6 +17,8 @@ public class Simulator{
   private int cacheBlocks;
   private int mmBlocks;
   private int blockSize;
+  private boolean isAddress;
+  private boolean isCont;
 
   //output attributes
   private int[][] cacheMemory;
@@ -47,7 +49,20 @@ public class Simulator{
     this.missCount = 0;
     this.hitCount = 0;
 
-    ArrayList<Integer> parsedFlow = parseProgramFlow();
+    ArrayList<Integer> initParsedFlow = parseProgramFlow();
+    ArrayList<Integer> parsedFlow;
+    if(isAddress && isCont){
+      parsedFlow = new ArrayList<Integer>();
+      for(int i=0; i < initParsedFlow.size(); i=i+this.blockSize)
+        parsedFlow.add((int)Math.floor(initParsedFlow.get(i)/this.blockSize));
+    } else if(isAddress){
+      parsedFlow = new ArrayList<Integer>();
+      for(int i=0; i < initParsedFlow.size(); i++)
+        parsedFlow.add((int)Math.floor(initParsedFlow.get(i)/this.blockSize));
+    } else
+      parsedFlow = initParsedFlow;
+
+    System.out.println(parsedFlow.toString());
 
     for(int i=0; i < parsedFlow.size(); i++){
       boolean isHit = true;
@@ -117,13 +132,15 @@ public class Simulator{
     while(sc.hasNextLine()){
       String line = sc.nextLine().trim();
       String[] splitted = line.split(" ");
-      //System.out.println(Arrays.toString(splitted));
 
-      if(splitted[0].equalsIgnoreCase("LOOP")) {
+      //loop start flag
+      if(splitted[0].equalsIgnoreCase("LOOP")) {  
         loopAddStore.add(addressCounter);
         loopCtrStore.add(Integer.parseInt(splitted[2]));
         loopNameStore.add(splitted[1]);
-      } else if(splitted[0].equalsIgnoreCase("J")) {
+      } 
+      //loop end flag
+      else if(splitted[0].equalsIgnoreCase("J")) {  
         int index = loopNameStore.size() - 1;
         
         if(splitted[1].equals(loopNameStore.get(index))) {
@@ -133,7 +150,6 @@ public class Simulator{
           for(int k=loopAddStore.get(index); k <= addressCounter-1; k++){
             loopSequence.add(parsedFlow.get(k));
           }
-          //System.out.println("Stored loop: " + loopSequence.toString());
 
           //add loop
           for(int i=0; i < loopCtrStore.get(index)-1; i++){
@@ -147,17 +163,37 @@ public class Simulator{
           loopCtrStore.remove(index);
           loopNameStore.remove(index);
         }
-      } else{
-        parsedFlow.add(Integer.parseInt(splitted[0]));
+      } 
+      //range flag, inclusive
+      else if(splitted[0].equalsIgnoreCase("RANGE")) {
+        int start;
+        int end;
+
+        if(splitted[1].charAt(0) == 'x')
+          start = Integer.parseInt(splitted[1].substring(1), 16);
+        else
+          start = Integer.parseInt(splitted[1]);
+
+        if(splitted[2].charAt(0) == 'x')
+          end = Integer.parseInt(splitted[2].substring(1), 16);
+        else
+          end = Integer.parseInt(splitted[2]);
+
+        for(int i = start; i <= end; i++){
+          parsedFlow.add(i);
+          addressCounter++;
+        }
+      } 
+      //normal input
+      else if(!splitted[0].equals("")) {
+        if(splitted[0].charAt(0) == 'x')
+          parsedFlow.add(Integer.parseInt(splitted[0].substring(1), 16));
+        else
+          parsedFlow.add(Integer.parseInt(splitted[0]));
         addressCounter++;
       }
     }
 
-    // System.out.println("Name: " + loopNameStore.toString());
-    // System.out.println("Add: " + loopAddStore.toString());
-    // System.out.println("Ctr: " + loopCtrStore.toString());
-    // System.out.println("Flow: " + parsedFlow.toString());
-    // System.out.println("Count: " + addressCounter);
     sc.close();
     return parsedFlow;
   }
@@ -175,6 +211,12 @@ public class Simulator{
   }
   public void setBlockSize(int blockSize) {
     this.blockSize = blockSize;
+  }
+  public void setIsAddress(boolean isAddress) {
+    this.isAddress = isAddress;
+  }
+  public void setIsCont(boolean isCont){
+    this.isCont = isCont;
   }
 
   //getters
