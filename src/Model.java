@@ -25,6 +25,7 @@ public class Model {
 
   private String cacheSnapshot;
   private boolean isAddress;
+  private boolean isCont;
 
   //Calculator attributes
   private int hitCount;
@@ -45,6 +46,8 @@ public class Model {
     this.sim.setCacheBlocks(this.cacheBlocks);
     this.sim.setMMBlocks(this.mmBlocks);
     this.sim.setBlockSize(this.blockSize);
+    this.sim.setIsAddress(this.isAddress);
+    this.sim.setIsCont(this.isCont);
 
     this.sim.runSimulation();
 
@@ -79,6 +82,10 @@ public class Model {
 
   public void setIsAddress(boolean isAddress){
     this.isAddress=isAddress;
+  }
+
+  public void setIsCont(boolean isCont){
+    this.isCont=isCont;
   }
 
   public float getCacheAccessTime(){
