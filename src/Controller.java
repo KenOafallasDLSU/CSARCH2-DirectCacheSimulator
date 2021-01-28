@@ -56,7 +56,9 @@ public class Controller {
           model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
         }
 
-        model.setIsAddress(view.address.isSelected());
+        model.setIsAddress(view.addressInput.isSelected());
+        model.setIsCont(view.isCont.isSelected());
+        model.setIsLoadThrough(view.isLoadThrough.isSelected());
         
         System.out.println("Cache access: "+model.getCacheAccessTime());
         System.out.println("MM access: "+model.getMMAccessTime());
@@ -66,6 +68,9 @@ public class Controller {
         model.runSimulationSequence();
         System.out.println("snapshot: "+model.getCacheSnapshot());
         System.out.println("is address: "+model.getIsAddress());
+        System.out.println("is cont: "+model.getIsCont());
+        System.out.println("is load: "+model.getIsLoadThrough());
+
         view.flowArea.setText(model.getCacheSnapshot());
 
         try {
@@ -84,6 +89,8 @@ public class Controller {
           System.out.println("An error occurred.");
           error.printStackTrace();
         }
+
+
       }
     }
 
