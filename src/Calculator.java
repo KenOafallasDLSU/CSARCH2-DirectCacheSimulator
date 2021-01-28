@@ -7,7 +7,7 @@
  */
 
 public class Calculator {
-  public Calculator (int cacheAccessTime, int mmAccessTime, int hitCount, int missCount, boolean isLoadThrough, int blockSize){
+  public Calculator (float cacheAccessTime, float mmAccessTime, int hitCount, int missCount, boolean isLoadThrough, int blockSize){
     
     this.cacheAccessTime = cacheAccessTime;
     this.mmAccessTime = mmAccessTime;
@@ -69,8 +69,8 @@ public class Calculator {
   }
 
 
-  private int cacheAccessTime;
-  private int mmAccessTime;
+  private float cacheAccessTime;
+  private float mmAccessTime;
   private int blockSize;
   private int hitCount;
   private int missCount;

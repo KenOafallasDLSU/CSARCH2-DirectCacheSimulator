@@ -58,6 +58,10 @@ public class Model {
     this.cacheSnapshot = this.sim.getCacheSnapshot();
   }
 
+  public void setCalculator(){
+    this.calculator=new Calculator(this.cacheAccessTime, this.mmAccessTime, this.hitCount, this.missCount, this.isLoadThrough, this.blockSize);
+  }
+
   public void setCacheAccessTime(float cacheAccessTime){
     this.cacheAccessTime=cacheAccessTime;
   }
@@ -150,4 +154,7 @@ public class Model {
     return this.isLoadThrough;
   }
 
+  public Calculator getCalculator(){
+    return this.calculator;
+  }
 }

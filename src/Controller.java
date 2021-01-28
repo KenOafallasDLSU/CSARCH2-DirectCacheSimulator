@@ -72,6 +72,8 @@ public class Controller {
         System.out.println("is load: "+model.getIsLoadThrough());
 
         view.flowArea.setText(model.getCacheSnapshot());
+        model.setCalculator();
+        System.out.println("miss penalty: "+model.getCalculator().getMissPenalty());
 
         try {
           File myObj = new File("filename.txt");
