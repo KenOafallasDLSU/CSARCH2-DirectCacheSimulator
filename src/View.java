@@ -7,6 +7,7 @@
  */
 
 import javax.swing.*;
+import javax.swing.JCheckBox;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,6 +21,7 @@ public class View {
 	public JLabel flowLabel;
 	public JTextArea flowArea;
 	public JScrollPane flowScroll;
+	public JCheckBox isCont;
 
 	public JLabel cmLabel;
 	public JTextField cmInput;
@@ -31,7 +33,8 @@ public class View {
 	public JRadioButton mmBlock;
 	public JRadioButton mmWord;
 
-	public JRadioButton address;
+	public JRadioButton blockInput;
+	public JRadioButton addressInput;
 	
 	public JLabel blockSizeLabel;
 	public JTextField blockSize;
@@ -42,6 +45,7 @@ public class View {
 	public JLabel matLabel;
 	public JTextField mat;
 
+	public JCheckBox isLoadThrough;
 	public JButton runButton;
 	
 	public JLabel outputLabel;
@@ -50,7 +54,7 @@ public class View {
 
 	public View () {
 		frame = new JFrame("Direct Mapping Cache Simulator");
-        frame.setSize(1000, 565);
+        frame.setSize(1000, 580);
         frame.setLayout(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
@@ -65,14 +69,25 @@ public class View {
         flowArea.setLineWrap(true);
 
 		flowScroll = new JScrollPane(flowArea);
-        flowScroll.setBounds(50, 70, 420, 360);
+        flowScroll.setBounds(50, 70, 420, 375);
         frame.add(flowScroll);
-        // flowScroll.setVisible(true);
 
-		address = new JRadioButton("Treat inputs as block address");
-		address.setBounds(50, 435, 420, 25);
-		// address.setSelected(true);
-		frame.add(address);
+		blockInput = new JRadioButton("Treat inputs as blocks");
+		blockInput.setBounds(50, 450, 200, 25);
+		blockInput.setSelected(true);
+		frame.add(blockInput);
+		
+		addressInput = new JRadioButton("Treat inputs as address");
+		addressInput.setBounds(260, 450, 200, 25);
+		frame.add(addressInput);
+
+		ButtonGroup inputGroup = new ButtonGroup();
+		inputGroup.add(blockInput);
+		inputGroup.add(addressInput);
+
+		isCont = new JCheckBox("Contiguous addresses");
+		isCont.setBounds(310, 38, 200, 26);
+		frame.add(isCont);
 
 	// Cache Size
 		cmLabel = new JLabel("Cache size");
@@ -154,9 +169,14 @@ public class View {
 		mat.setBounds(510, 370, 420, 28);
 		frame.add(mat);
 
+	// Is load through
+		isLoadThrough = new JCheckBox("Load through");
+		isLoadThrough.setBounds(506, 405, 420, 28);
+		frame.add(isLoadThrough);
+
 	// Run button
 		runButton = new JButton("Run");
-		runButton.setBounds(670, 430, 100, 28);
+		runButton.setBounds(670, 450, 100, 28);
 		frame.add(runButton);
 
 	// Output screen
