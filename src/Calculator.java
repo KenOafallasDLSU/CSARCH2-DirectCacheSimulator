@@ -21,7 +21,7 @@ public class Calculator {
 
   public void setHitRate (int hitCount, int missCount) {
 
-    this.hitRate = hitCount / (hitCount+missCount);
+    this.hitRate =(float) hitCount / (hitCount+missCount);
   }
 
   public float getMissPenalty(){
@@ -66,6 +66,10 @@ public class Calculator {
     totalTime = hit + miss + cacheProbing;
 
     return totalTime;
+  }
+
+  public float getHitRate(){
+    return this.hitRate;
   }
 
 

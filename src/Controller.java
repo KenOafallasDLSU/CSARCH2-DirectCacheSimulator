@@ -74,6 +74,7 @@ public class Controller {
         view.flowArea.setText(model.getCacheSnapshot());
         model.setCalculator();
         System.out.println("miss penalty: "+model.getCalculator().getMissPenalty());
+        System.out.println("Hit count: "+model.getHitCount());
 
         try {
           File myObj = new File("filename.txt");
