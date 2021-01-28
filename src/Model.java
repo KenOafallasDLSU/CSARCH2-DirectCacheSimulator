@@ -31,6 +31,8 @@ public class Model {
   private int hitCount;
   private int missCount; 
 
+  private boolean isLoadThrough;
+
   public Model(){
     this.sim = new Simulator();
   }
@@ -88,6 +90,10 @@ public class Model {
     this.isCont=isCont;
   }
 
+  public void setIsLoadThrough(boolean isLoadThrough){
+    this.isLoadThrough=isLoadThrough;
+  }
+
   public float getCacheAccessTime(){
     return this.cacheAccessTime;
   }
@@ -134,6 +140,14 @@ public class Model {
 
   public int getMissCount(){
     return this.missCount;
+  }
+
+  public boolean getIsCont(){
+    return this.isCont;
+  }
+
+  public boolean getIsLoadThrough(){
+    return this.isLoadThrough;
   }
 
 }
