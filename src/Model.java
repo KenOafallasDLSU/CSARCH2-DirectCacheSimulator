@@ -162,4 +162,16 @@ public class Model {
     return this.isLoadThrough;
   }
 
+  public float getMissPenalty(){
+    return this.missPenalty;
+  }
+
+  public float getAverageTime(){
+    return this.averageTime;
+  }
+
+  public float getTotalTime(){
+    return this.totalTime;
+  }
+
 }

@@ -10,6 +10,8 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException; 
 import java.io.FileWriter; 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 public class Controller {
 
     private View view;
@@ -19,6 +21,8 @@ public class Controller {
       this.view=view;
       this.model=model;
       this.view.addRunListener(new RunListener());
+      this.view.addResetListener(new ResetListener());
+      this.view.addExportListener(new ExportListener());
     }
 
     public View getView(){
@@ -33,31 +37,62 @@ public class Controller {
         //Controller.this.simulator.printWords();
 
         model.setprogramFlow(view.flowArea.getText());
-        model.setCacheAccessTime(Float.parseFloat(view.cat.getText()));
-        model.setMMAccessTime(Float.parseFloat(view.mat.getText()));
-        
-        model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
-        model.setBlockSize(Integer.parseInt(view.blockSize.getText()));
 
-        if(view.cmWord.isSelected()){
-          int cBlocks = Integer.parseInt(view.cmInput.getText())/Integer.parseInt(view.blockSize.getText());
-          model.setCacheBlocks(cBlocks);
-
-          
-        }else{
-          model.setCacheBlocks(Integer.parseInt(view.cmInput.getText()));
+        try{
+          model.setCacheAccessTime(Float.parseFloat(view.cat.getText()));
+          model.setMMAccessTime(Float.parseFloat(view.mat.getText()));
+        }catch(NumberFormatException exception){
+          System.out.println("Number in cache access time and memory access time please");
+        }
+        catch(Exception except){
+          except.printStackTrace();
         }
 
-        if(view.mmWord.isSelected()){
-  //        System.out.println("mm word");
-          int mBlocks = Integer.parseInt(view.mmInput.getText())/Integer.parseInt(view.blockSize.getText());
-          model.setMMBlocks(mBlocks);
-        }else{
-          model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
+        try{
+          model.setBlockSize(Integer.parseInt(view.blockSize.getText()));
+        }catch(NumberFormatException exception){
+          System.out.println("int in block size please");
         }
-
-        model.setIsAddress(view.address.isSelected());
+        catch(Exception except){
+          except.printStackTrace();
+        }
         
+        
+
+        try{
+          if(view.cmWord.isSelected()){
+            int cBlocks = Integer.parseInt(view.cmInput.getText())/Integer.parseInt(view.blockSize.getText());
+            model.setCacheBlocks(cBlocks);
+  
+            
+          }else{
+            model.setCacheBlocks(Integer.parseInt(view.cmInput.getText()));
+          }
+  
+          if(view.mmWord.isSelected()){
+    //        System.out.println("mm word");
+            int mBlocks = Integer.parseInt(view.mmInput.getText())/Integer.parseInt(view.blockSize.getText());
+            model.setMMBlocks(mBlocks);
+          }else{
+            model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
+          }
+        }
+        catch(NumberFormatException except){
+          System.out.println("Number in cache size and memory size please");
+        }
+        catch(ArithmeticException except){
+          System.out.println("Make sure the block size is not zero or blank please");
+        }
+        catch(Exception except){
+          except.printStackTrace();
+        }
+        
+
+
+        model.setIsAddress(view.addressInput.isSelected());
+        model.setIsCont(view.isCont.isSelected());
+        model.setIsLoadThrough(view.isLoadThrough.isSelected());
+
         System.out.println("Cache access: "+model.getCacheAccessTime());
         System.out.println("MM access: "+model.getMMAccessTime());
         System.out.println("Cache Blocks: "+model.getCacheBlocks());
@@ -66,10 +101,62 @@ public class Controller {
         model.runSimulationSequence();
         System.out.println("snapshot: "+model.getCacheSnapshot());
         System.out.println("is address: "+model.getIsAddress());
+        System.out.println("is cont: "+model.getIsCont());
+        System.out.println("is load through: "+model.getIsLoadThrough());
         view.flowArea.setText(model.getCacheSnapshot());
 
+        try{
+          model.setCalculator();
+        }catch(ArithmeticException except){
+          System.out.println("Make sure the block size is not zero or blank please");
+        }
+        catch(Exception except){
+          except.printStackTrace();
+        }
+        
+
+
+        System.out.println("Miss count: "+model.getMissCount());
+        System.out.println("Hit count: "+model.getHitCount());
+
+        System.out.println("Miss penalty: "+model.getMissPenalty());
+        System.out.println("Avergae time: "+model.getAverageTime());
+        System.out.println("Total time: "+model.getTotalTime());
+
+
+
+
+
+
+        view.outputScreen();
+
+      }
+    }
+
+    class ResetListener implements ActionListener{
+      public void actionPerformed(ActionEvent e){
+       
+        view.cat.setText("");
+        view.mat.setText("");
+        view.flowArea.setText("");
+        view.mmInput.setText("");
+        view.blockSize.setText("");
+        view.cmInput.setText("");
+        view.inputScreen();
+
+      }
+    }
+
+    class ExportListener implements ActionListener{
+      public void actionPerformed(ActionEvent e){
+       
         try {
-          File myObj = new File("filename.txt");
+          SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_yyyy_h_mm_ss_a");
+          Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+          System.out.println(sdf.format(timestamp));
+          String filename="Exported_File_"+sdf.format(timestamp)+".txt";
+          System.out.println("file is: "+filename);
+          File myObj = new File(filename);
           if (myObj.createNewFile()) {
             System.out.println("File created: " + myObj.getName());
           } else {
@@ -84,8 +171,10 @@ public class Controller {
           System.out.println("An error occurred.");
           error.printStackTrace();
         }
+
       }
     }
+
 
 }
     
