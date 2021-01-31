@@ -232,6 +232,14 @@ public class View {
 	void addRunListener(ActionListener listenForRun){
 		runButton.addActionListener(listenForRun);
 	}
+
+	void addResetListener(ActionListener listenForRun){
+		resetButton.addActionListener(listenForRun);
+	}
+
+	void addExportListener(ActionListener listenForRun){
+		exportButton.addActionListener(listenForRun);
+	}
 	// temp main to see view
 	/*
 	public static void main(String[] args) {
