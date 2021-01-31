@@ -227,6 +227,9 @@ public class Simulator{
     int wordBits = (int)(Math.log(this.blockSize)/Math.log(2));
     int tagBits = addBits - (blockBits + wordBits); 
 
+    sb.append("Valid Bit  -  TAG  -  MM Address of Data");
+    sb.append(System.lineSeparator());
+
     for(int i = 0; i < this.cacheBlocks; i++){
       boolean valid = this.cacheMemory[i][0] != -1;
 
@@ -242,10 +245,10 @@ public class Simulator{
           }
 
           //valid bit
-          sb.append("1 ");
+          sb.append("1   -   ");
           //tag
           sb.append(bin.substring(0, tagBits));
-          sb.append(" ");
+          sb.append("   -   ");
           //address
           sb.append(bin);
         } else{
