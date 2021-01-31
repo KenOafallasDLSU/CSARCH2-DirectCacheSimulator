@@ -31,6 +31,10 @@ public class Model {
   private int hitCount;
   private int missCount; 
 
+  private float missPenalty;
+  private float averageTime;
+  private float totalTime;
+
   private boolean isLoadThrough;
 
   public Model(){
@@ -56,6 +60,14 @@ public class Model {
     this.hitCount = this.sim.getHitCount();
     this.missCount = this.sim.getMissCount();
     this.cacheSnapshot = this.sim.getCacheSnapshot();
+  }
+
+  public void setCalculator() {
+    this.calculator = new Calculator (this.cacheAccessTime, this.mmAccessTime, this.hitCount, this.missCount, this.isLoadThrough, this.blockSize);
+
+    this.missPenalty = this.calculator.getMissPenalty();
+    this.averageTime = this.calculator.getAverageTime();
+    this.totalTime = this.calculator.getTotalTime();
   }
 
   public void setCacheAccessTime(float cacheAccessTime){
