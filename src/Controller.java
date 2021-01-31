@@ -162,7 +162,7 @@ public class Controller {
           SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_yyyy_h_mm_ss_a");
           Timestamp timestamp = new Timestamp(System.currentTimeMillis());
           System.out.println(sdf.format(timestamp));
-          String filename="Exported_File_"+sdf.format(timestamp)+".txt";
+          String filename="Result_Log_"+sdf.format(timestamp)+".txt";
           System.out.println("file is: "+filename);
           File myObj = new File(filename);
           if (myObj.createNewFile()) {
