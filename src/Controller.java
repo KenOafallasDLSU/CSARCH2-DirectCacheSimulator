@@ -103,7 +103,7 @@ public class Controller {
         System.out.println("is address: "+model.getIsAddress());
         System.out.println("is cont: "+model.getIsCont());
         System.out.println("is load through: "+model.getIsLoadThrough());
-        view.flowArea.setText(model.getCacheSnapshot());
+        
 
         try{
           model.setCalculator();
@@ -123,6 +123,14 @@ public class Controller {
         System.out.println("Avergae time: "+model.getAverageTime());
         System.out.println("Total time: "+model.getTotalTime());
 
+        String putInflowArea=
+          "Miss count: "+model.getMissCount()+"\n"+
+          "Hit count: "+model.getHitCount()+"\n"+
+          "Miss penalty: "+model.getMissPenalty()+" ns\n"+
+          "Average time: "+model.getAverageTime()+" ns\n"+
+          "Total time: "+model.getTotalTime()+" ns\n"+"\n"+
+          model.getCacheSnapshot();
+        view.flowArea.setText(putInflowArea);
 
 
 
@@ -154,7 +162,7 @@ public class Controller {
           SimpleDateFormat sdf = new SimpleDateFormat("MM_dd_yyyy_h_mm_ss_a");
           Timestamp timestamp = new Timestamp(System.currentTimeMillis());
           System.out.println(sdf.format(timestamp));
-          String filename="Exported_File_"+sdf.format(timestamp)+".txt";
+          String filename="Result_Log_"+sdf.format(timestamp)+".txt";
           System.out.println("file is: "+filename);
           File myObj = new File(filename);
           if (myObj.createNewFile()) {
@@ -162,8 +170,14 @@ public class Controller {
           } else {
             System.out.println("File already exists.");
           }
-          FileWriter myWriter = new FileWriter("filename.txt");
-          String toBeWritten="Hit count: "+model.getHitCount()+"\n"+"Miss count: "+model.getMissCount()+"\n"+"Cache access time: "+model.getCacheAccessTime()+"\n"+"Cache Snapshot: \n"+model.getCacheSnapshot();
+          FileWriter myWriter = new FileWriter(filename);
+          String toBeWritten=
+            "Miss count: "+model.getMissCount()+"\n"+
+            "Hit count: "+model.getHitCount()+"\n"+
+            "Miss penalty: "+model.getMissPenalty()+" ns\n"+
+            "Average time: "+model.getAverageTime()+" ns\n"+
+            "Total time: "+model.getTotalTime()+" ns\n"+"\n"+
+            model.getCacheSnapshot();
           myWriter.write(toBeWritten);
           myWriter.close();
           System.out.println("Successfully wrote to the file.");
