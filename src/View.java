@@ -189,11 +189,11 @@ public class View {
 
 	// Reset and export buttons
 		resetButton = new JButton("Reset");
-		resetButton.setBounds(600, 430, 100, 28);
+		resetButton.setBounds(600, 450, 100, 28);
 		frame.add(resetButton);
 
 		exportButton = new JButton("Export");
-		exportButton.setBounds(720, 430, 100, 28);
+		exportButton.setBounds(720, 450, 100, 28);
 		frame.add(exportButton);
 		
 		
