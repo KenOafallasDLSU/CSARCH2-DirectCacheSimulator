@@ -10,6 +10,7 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern; 
 
 public class Simulator{
   //input attributes
@@ -163,21 +164,27 @@ public class Simulator{
           loopCtrStore.remove(index);
           loopNameStore.remove(index);
         }
+        else 
+          break;
       } 
       //range flag, inclusive
       else if(splitted[0].equalsIgnoreCase("RANGE")) {
         int start;
         int end;
 
-        if(splitted[1].charAt(0) == 'x')
+        if(splitted[1].matches("^x[0-9a-fA-F]+"))
           start = Integer.parseInt(splitted[1].substring(1), 16);
-        else
+        else if(splitted[1].matches("[0-9]+"))
           start = Integer.parseInt(splitted[1]);
+        else 
+          break;
 
-        if(splitted[2].charAt(0) == 'x')
+        if(splitted[2].matches("^x[0-9a-fA-F]+"))
           end = Integer.parseInt(splitted[2].substring(1), 16);
-        else
+        else if(splitted[2].matches("[0-9]+"))
           end = Integer.parseInt(splitted[2]);
+        else
+          break;
 
         for(int i = start; i <= end; i++){
           parsedFlow.add(i);
@@ -185,7 +192,7 @@ public class Simulator{
         }
       } 
       //normal input
-      else if(!splitted[0].equals("")) {
+      else if(!splitted[0].equals("") && (splitted[0].matches("^x[0-9a-fA-F]+") || splitted[0].matches("[0-9]+"))) {
         if(splitted[0].charAt(0) == 'x')
           parsedFlow.add(Integer.parseInt(splitted[0].substring(1), 16));
         else
