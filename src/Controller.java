@@ -41,48 +41,82 @@ public class Controller {
         model.setprogramFlow(view.flowArea.getText());
 
         try{
-          model.setCacheAccessTime(Float.parseFloat(view.cat.getText()));
-          model.setMMAccessTime(Float.parseFloat(view.mat.getText()));
+          if(Float.parseFloat(view.cat.getText())>0){
+            
+            model.setCacheAccessTime(Float.parseFloat(view.cat.getText()));
+          }else{
+            model.setCacheAccessTime(1);
+            throw new Exception("Cache access time must be positive number please");
+            
+          }
+
+          if(Float.parseFloat(view.mat.getText())>0){
+            model.setMMAccessTime(Float.parseFloat(view.mat.getText()));
+          }else{
+            model.setCacheAccessTime(1);
+            model.setMMAccessTime(1);
+            throw new Exception("MM access time must be positive number please");
+            
+          }
+            
         }catch(NumberFormatException exception){
           
           showMessageDialog(null, "Number in cache access time and memory access time please");
           System.out.println("Number in cache access time and memory access time please");
         }
         catch(Exception except){
-          showMessageDialog(null, "Unknown error occured");
-          except.printStackTrace();
+          showMessageDialog(null, "Error occured: "+except.getMessage());
+          //except.printStackTrace();
         }
 
         try{
-          model.setBlockSize(Integer.parseInt(view.blockSize.getText()));
+          if(Integer.parseInt(view.blockSize.getText())>0){
+            model.setBlockSize(Integer.parseInt(view.blockSize.getText()));
+          }else{
+            model.setBlockSize(1);
+            throw new Exception("Block size must be positive number please");
+          }
+
         }catch(NumberFormatException exception){
           showMessageDialog(null, "int in block size please");
           System.out.println("int in block size please");
         }
         catch(Exception except){
-          showMessageDialog(null, "Unknown error occured");
-          except.printStackTrace();
+          showMessageDialog(null, "Error occured: "+except.getMessage());
+      //    except.printStackTrace();
         }
         
         
 
         try{
-          if(view.cmWord.isSelected()){
-            int cBlocks = Integer.parseInt(view.cmInput.getText())/Integer.parseInt(view.blockSize.getText());
-            model.setCacheBlocks(cBlocks);
-  
-            
+          if(Integer.parseInt(view.cmInput.getText())>0){
+            if(view.cmWord.isSelected()){
+              int cBlocks = Integer.parseInt(view.cmInput.getText())/Integer.parseInt(view.blockSize.getText());
+              model.setCacheBlocks(cBlocks);
+    
+              
+            }else{
+              model.setCacheBlocks(Integer.parseInt(view.cmInput.getText()));
+            }
           }else{
-            model.setCacheBlocks(Integer.parseInt(view.cmInput.getText()));
+            model.setCacheBlocks(1);
+            model.setMMBlocks(1);
+            throw new Exception("Cache size should be positive please");
           }
-  
-          if(view.mmWord.isSelected()){
-    //        System.out.println("mm word");
-            int mBlocks = Integer.parseInt(view.mmInput.getText())/Integer.parseInt(view.blockSize.getText());
-            model.setMMBlocks(mBlocks);
+
+          if(Integer.parseInt(view.mmInput.getText())>0){
+            if(view.mmWord.isSelected()){
+              //System.out.println("mm word");
+              int mBlocks = Integer.parseInt(view.mmInput.getText())/Integer.parseInt(view.blockSize.getText());
+              model.setMMBlocks(mBlocks);
+            }else{
+              model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
+            }
           }else{
-            model.setMMBlocks(Integer.parseInt(view.mmInput.getText()));
+            model.setMMBlocks(1);
+            throw new Exception("MM size should be positive please");
           }
+
         }
         catch(NumberFormatException except){
           showMessageDialog(null, "Number in cache size and memory size please");
@@ -93,8 +127,8 @@ public class Controller {
           System.out.println("Make sure the block size is not zero or blank please");
         }
         catch(Exception except){
-          showMessageDialog(null, "Unknown error occured");
-          except.printStackTrace();
+          showMessageDialog(null, "Unknown error occured: "+except.getMessage());
+        //  except.printStackTrace();
         }
         
 
@@ -122,7 +156,7 @@ public class Controller {
           System.out.println("Make sure the block size is not zero or blank please");
         }
         catch(Exception except){
-          showMessageDialog(null, "Unknown error occured in calculating");
+          showMessageDialog(null, "Error occured in calculating: "+except.getMessage());
           except.printStackTrace();
         }
         
