@@ -114,7 +114,6 @@ public class Controller {
             }
           }else{
             model.setMMBlocks(1);
-            System.out.println("the MM here is ::: "+model.getMMBlocks());
             throw new Exception("MM size should be positive please");
           }
 
