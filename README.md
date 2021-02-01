@@ -16,7 +16,7 @@ CSARCH2 - S12
 
 ## Sample Input Cases
 
-### Cache Problem Set #4
+### **Cache Problem Set #4**
 
 #### ***Input***
 
@@ -64,15 +64,15 @@ Average Memory Access Time: **31.75 ns**
 
 Total Memory Access Time: **417.0 ns**
 
-### Cache Problem Set #5
+### **Cache Problem Set #5**
 
 #### ***Input***
 
 Cache Size: **4096**, as Words
 
-Main Memory Size: **1024**, as Words
+Main Memory Size: **1048576**, as Words
 
-Block Size in Words: **4**
+Block Size in Words: **64**
 
 Cache Access Time: **1**
 
@@ -80,7 +80,7 @@ Memory Access Time: **10**
 
 Load Through: **unchecked**
 
-Contiguous Addresses: **unchecked**
+Contiguous Addresses: **checked**
 
 Treat Input as: **Address**
 
@@ -93,17 +93,33 @@ J L1
 
 #### ***Expected Output***
 
-Miss Count: **9**
+Miss Count: **140**
 
-Hit Count: **3**
+Hit Count: **540**
 
-Miss Penalty: **42.0 ns**
+Miss Penalty: **642.0 ns**
 
-Average Memory Access Time: **31.75 ns**
+Average Memory Access Time: **132.9706 ns**
 
-Total Memory Access Time: **417.0 ns**
+Total Memory Access Time: **133260.0 ns**
 
-### Cache Problem Set #6
+### **Cache Problem Set #6**
+
+Cache Size: **1024**, as Words
+
+Main Memory Size: **65536**, as Words
+
+Block Size in Words: **128**
+
+Cache Access Time: **1**
+
+Memory Access Time: **10**
+
+Load Through: **unchecked**
+
+Contiguous Addresses: **checked**
+
+Treat Input as: **Address**
 
 Program Flow:
 ```
@@ -120,12 +136,12 @@ RANGE 1280 1535
 
 #### ***Expected Output***
 
-Miss Count: **9**
+Miss Count: **30**
 
-Hit Count: **3**
+Hit Count: **443**
 
-Miss Penalty: **42.0 ns**
+Miss Penalty: **1282.0 ns**
 
-Average Memory Access Time: **31.75 ns**
+Average Memory Access Time: **82.24735 ns**
 
-Total Memory Access Time: **417.0 ns**
+Total Memory Access Time: **98974.0 ns**
