@@ -33,10 +33,7 @@ public class Controller {
 
     class RunListener implements ActionListener{
       public void actionPerformed(ActionEvent e){
-        //System.out.println(view.flowArea.getText());
-        //super.simulator=new Simulator(0,0,view.flowArea.getText(),0,0);
-        //Controller.this.simulator.setProgramFlow(view.flowArea.getText());
-        //Controller.this.simulator.printWords();
+        boolean validOutput = true;
 
         model.setprogramFlow(view.flowArea.getText());
 
@@ -47,7 +44,6 @@ public class Controller {
           }else{
             model.setCacheAccessTime(1);
             throw new Exception("Cache access time must be positive number please");
-            
           }
 
           if(Float.parseFloat(view.mat.getText())>0){
@@ -56,16 +52,16 @@ public class Controller {
             model.setCacheAccessTime(1);
             model.setMMAccessTime(1);
             throw new Exception("MM access time must be positive number please");
-            
           }
             
         }catch(NumberFormatException exception){
-          
           showMessageDialog(null, "Number in cache access time and memory access time please");
           System.out.println("Number in cache access time and memory access time please");
+          validOutput = false;
         }
         catch(Exception except){
           showMessageDialog(null, "Error occured: "+except.getMessage());
+          validOutput = false;
           //except.printStackTrace();
         }
 
@@ -80,21 +76,19 @@ public class Controller {
         }catch(NumberFormatException exception){
           showMessageDialog(null, "int in block size please");
           System.out.println("int in block size please");
+          validOutput = false;
         }
         catch(Exception except){
           showMessageDialog(null, "Error occured: "+except.getMessage());
+          validOutput = false;
       //    except.printStackTrace();
         }
         
-        
-
         try{
           if(Integer.parseInt(view.cmInput.getText())>0){
             if(view.cmWord.isSelected()){
               int cBlocks = Integer.parseInt(view.cmInput.getText())/Integer.parseInt(view.blockSize.getText());
               model.setCacheBlocks(cBlocks);
-    
-              
             }else{
               model.setCacheBlocks(Integer.parseInt(view.cmInput.getText()));
             }
@@ -121,69 +115,59 @@ public class Controller {
         catch(NumberFormatException except){
           showMessageDialog(null, "Number in cache size and memory size please");
           System.out.println("Number in cache size and memory size please");
+          validOutput = false;
         }
         catch(ArithmeticException except){
           showMessageDialog(null, "Make sure the block size is not zero or blank please");
           System.out.println("Make sure the block size is not zero or blank please");
+          validOutput = false;
         }
         catch(Exception except){
           showMessageDialog(null, "Unknown error occured: "+except.getMessage());
+          validOutput = false;
         //  except.printStackTrace();
         }
-        
-
 
         model.setIsAddress(view.addressInput.isSelected());
         model.setIsCont(view.isCont.isSelected());
         model.setIsLoadThrough(view.isLoadThrough.isSelected());
-
-        System.out.println("Cache access: "+model.getCacheAccessTime());
-        System.out.println("MM access: "+model.getMMAccessTime());
-        System.out.println("Cache Blocks: "+model.getCacheBlocks());
-        System.out.println("MM Blocks: "+model.getMMBlocks());
-        System.out.println("Size of a Block: "+model.getBlockSize());
-        model.runSimulationSequence();
-        System.out.println("snapshot: "+model.getCacheSnapshot());
-        System.out.println("is address: "+model.getIsAddress());
-        System.out.println("is cont: "+model.getIsCont());
-        System.out.println("is load through: "+model.getIsLoadThrough());
         
-
         try{
+          model.runSimulationSequence();
           model.setCalculator();
         }catch(ArithmeticException except){
           showMessageDialog(null, "Make sure the block size is not zero or blank please");
           System.out.println("Make sure the block size is not zero or blank please");
+          validOutput = false;
         }
         catch(Exception except){
           showMessageDialog(null, "Error occured in calculating: "+except.getMessage());
           except.printStackTrace();
+          validOutput = false;
         }
-        
 
-
-        System.out.println("Miss count: "+model.getMissCount());
-        System.out.println("Hit count: "+model.getHitCount());
-
-        System.out.println("Miss penalty: "+model.getMissPenalty());
-        System.out.println("Avergae time: "+model.getAverageTime());
-        System.out.println("Total time: "+model.getTotalTime());
-
-        String putInflowArea=
+        if(validOutput) {
+          String putInflowArea=
           "Miss count: "+model.getMissCount()+"\n"+
           "Hit count: "+model.getHitCount()+"\n"+
           "Miss penalty: "+model.getMissPenalty()+" ns\n"+
-          "Average time: "+model.getAverageTime()+" ns\n"+
-          "Total time: "+model.getTotalTime()+" ns\n"+"\n"+
+          "Average memory access time: "+model.getAverageTime()+" ns\n"+
+          "Total memory access time: "+model.getTotalTime()+" ns\n"+"\n"+
           model.getCacheSnapshot();
-        view.flowArea.setText(putInflowArea);
+          view.flowArea.setText(putInflowArea);
+          view.outputScreen();
 
+          validOutput = true;
+        } else{
+          view.cat.setText("");
+          view.mat.setText("");
+          view.flowArea.setText("");
+          view.mmInput.setText("");
+          view.blockSize.setText("");
+          view.cmInput.setText("");
 
-
-
-
-        view.outputScreen();
-
+          validOutput = true;
+        }
       }
     }
 
@@ -231,8 +215,8 @@ public class Controller {
               "Miss count: "+model.getMissCount()+System.lineSeparator()+
               "Hit count: "+model.getHitCount()+System.lineSeparator()+
               "Miss penalty: "+model.getMissPenalty()+" ns"+System.lineSeparator()+
-              "Average time: "+model.getAverageTime()+" ns"+System.lineSeparator()+
-              "Total time: "+model.getTotalTime()+" ns"+System.lineSeparator()+System.lineSeparator()+
+              "Average memory access time: "+model.getAverageTime()+" ns"+System.lineSeparator()+
+              "Total memory access time: "+model.getTotalTime()+" ns"+System.lineSeparator()+System.lineSeparator()+
               model.getCacheSnapshot();
             myWriter.write(toBeWritten);
             myWriter.close();
