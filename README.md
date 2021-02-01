@@ -1,5 +1,7 @@
 # CSARCH2-DirectCacheSimulator
 
+This manual is best viewed through a markdown previewer such as that in VSCode or GitHub
+
 #### [Git Repository](https://github.com/KenOafallasDLSU/CSARCH2-DirectCacheSimulator)
 
 ## Authors
