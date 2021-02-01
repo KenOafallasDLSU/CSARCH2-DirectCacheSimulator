@@ -30,6 +30,8 @@ As Decimal input, enter as normal integer number i.e. `15` for location 15. For 
 
 `J <name>` marks the end of a loop block. <name> is a case sensitive identifier to associate with a LOOP command. All commands and addresses between the LOOP command and the J command will be looped. Loops can be nested, and can involve RANGE commands. LOOP commands are closed with J commands in a last in-first out method similar to typical loops in Java. 
     
+> Errors in flow syntax will break the flow at the site of error, potentially preserving flow before the error
+    
 ### ***Simulation Parameters***
 
 Cache Size, Main Memory Size and Block Size are ***positive Decimal integers***
